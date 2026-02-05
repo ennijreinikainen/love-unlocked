@@ -13,6 +13,14 @@ const kissBtn = document.getElementById("kissBtn");
 const hintBtn = document.getElementById("hintBtn");
 const hintCard = document.getElementById("hintCard");
 
+// Hint card (top bar)
+
+const hintInputWrap = document.getElementById("hintInputWrap");
+const hintMsgWrap = document.getElementById("hintMsgWrap");
+const hintMsg = document.getElementById("hintMsg");
+const hintBack = document.getElementById("hintBack");
+const hintUnlockBtn = document.getElementById("hintUnlockBtn");
+
 /* ---------------------------
    Screen navigation
 ---------------------------- */
@@ -95,7 +103,6 @@ const submit = () => {
 
   const entered = caseInsensitive ? enteredRaw.toUpperCase() : enteredRaw;
 
-  // NEW: support either a single string OR a map of codes -> payload/message
   if (typeof correct === "object" && correct !== null) {
     const key = entered;
     if (Object.prototype.hasOwnProperty.call(correct, key)) {
@@ -110,7 +117,6 @@ const submit = () => {
     return;
   }
 
-  // Old single-code behavior
   const expected = caseInsensitive
     ? String(correct).toUpperCase()
     : String(correct);
@@ -166,8 +172,6 @@ backBtn?.addEventListener("click", () => {
 
 /* ---------------------------
    LOCK #1: Password (2702)
-   boxesId must match your HTML: id="pinBoxes"
-   buttonId must match your HTML: id="unlockBtn"
 ---------------------------- */
 const passwordLock = setupCodeLock({
   boxesId: "pinBoxes",
@@ -210,23 +214,29 @@ hintBtn?.addEventListener("click", () => {
 /* ---------------------------
    HINT CARD UI helpers
 ---------------------------- */
-const hintMsg = document.getElementById("hintMsg");
-const hintInputWrap = document.getElementById("hintInputWrap");
 
 function showHintMessage(text) {
-  if (hintMsg) {
-    hintMsg.textContent = text;
-    hintMsg.classList.remove("hidden");
-  }
+  // hide input view
   if (hintInputWrap) hintInputWrap.classList.add("hidden");
+
+  // set + show message view (this includes the back arrow)
+  if (hintMsg) hintMsg.textContent = text;
+  if (hintMsgWrap) hintMsgWrap.classList.remove("hidden");
 }
 
 function resetHintCard() {
-  if (hintMsg) {
-    hintMsg.textContent = "";
-    hintMsg.classList.add("hidden");
-  }
+  // hide message view
+  if (hintMsgWrap) hintMsgWrap.classList.add("hidden");
+
+  // clear message text (optional)
+  if (hintMsg) hintMsg.textContent = "";
+
+  // show input view again
   if (hintInputWrap) hintInputWrap.classList.remove("hidden");
+}
+
+if (hintBack) {
+  hintBack.addEventListener("click", resetHintCard);
 }
 
 /* ---------------------------
@@ -240,10 +250,21 @@ const hintLock = setupCodeLock({
   allow: "letters",
   caseInsensitive: true,
 
-  // Map of codes -> hint text
+  // Map of hint text
   correct: {
     COLD: "There might be a useful item on the table.",
-    // add more here...
+    GROW: "Sometimes the answer is on the other side.",
+    POTS: "Do the colors and patterns look familiar?",
+    DATE: "If it is valuable, it goes on the fridge.",
+    HELP: "Where I see myself, you can see your words.",
+    BUTT: "I wonder how many alphabets there are...?",
+    CLUB: "Suddenly all the places can be found where we sit and relax.",
+    KISS: "We started from somewhere, found ourselves disappearing in a moment elsewhere and ended up here.",
+    GIFT: "Reading is a useful hobby, especially for solving mysteries.",
+    AUER: "Now you know where to look. I'ts simply the first you see.",
+    BEST: "Rakas!",
+    WINE: "Tommy said it well.",
+    LAST: "This time there is no monsters under there.",
   },
 
   onSuccess: (hintText, codeUsed) => {
@@ -251,12 +272,9 @@ const hintLock = setupCodeLock({
   },
 
   onFail: () => {
-    // optional: show a gentle message, or do nothing
-    if (hintMsg) {
-      hintMsg.textContent = "No hint for that code.";
-      hintMsg.classList.remove("hidden");
-    }
+    showHintMessage("No hint for that code.");
   },
+
 });
 
 /* ---------------------------
@@ -289,11 +307,51 @@ const puzzle1Lock = setupCodeLock({
   length: 5,
   allow: "digits",
   correct: "92731",
-  onSuccess: () => {
-    hideError();
-    alert("✅ Puzzle 1 solved! Next puzzle unlocked.");
-    // showScreen(puzzle2); // when you have it
+onSuccess: () => {
+  hideError();
+  showWelcomeViewById("puzzle2View"); 
+  puzzle2Lock?.focusFirst();
+},
+  onFail: () => {
+    showError("Not quite. Use coupon code from the card for a hint.");
   },
+});
+
+/* ---------------------------
+   PUZZLE 2: (14126) polaroids
+---------------------------- */
+
+const puzzle2Lock = setupCodeLock({
+  boxesId: "puzzle2Boxes",
+  buttonId: "puzzle2UnlockBtn",
+  length: 5,
+  allow: "digits",
+  correct: "14126",
+onSuccess: () => {
+  hideError();
+  showWelcomeViewById("puzzle3View");
+  puzzle3Lock?.focusFirst();
+},
+  onFail: () => {
+    showError("Not quite. Use coupon code from the card for a hint.");
+  },
+});
+
+/* ---------------------------
+   PUZZLE 3: (42896) perse
+---------------------------- */
+
+const puzzle3Lock = setupCodeLock({
+  boxesId: "puzzle3Boxes",
+  buttonId: "puzzle3UnlockBtn",
+  length: 5,
+  allow: "digits",
+  correct: "42896",
+onSuccess: () => {
+  hideError();
+  showWelcomeViewById("puzzle4View");
+  puzzle4Lock?.focusFirst();
+},
   onFail: () => {
     showError("Not quite. Use coupon code from the card for a hint.");
   },

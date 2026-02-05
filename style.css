@@ -306,6 +306,34 @@ body {
   transform: scale(1.15);
 }
 
+.hint-msg-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.arrowback-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.arrowback-btn:hover {
+  opacity: 1;
+}
+
+.arrowback-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.hint-msg {
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* utility */
 .hidden {
   display: none;
@@ -366,14 +394,14 @@ body {
   margin-top: 24px;
 }
 
-/* PUZZLE 1: plants*/
+/*PUZZLE DEFAULTS*/
+
 .home-wrap {
   width: min(780px, 92vw);
   margin: 0 auto;
   text-align: center;
 }
 
-/* Title like the screenshot */
 .home-title {
   font-family: "DM Serif Text", serif;
   font-size: clamp(34px, 4vw, 56px);
@@ -381,7 +409,6 @@ body {
   margin: 0 0 22px;
 }
 
-/* Body like the screenshot */
 .home-body {
   font-family: "Montserrat", sans-serif;
   color: #111;
@@ -391,7 +418,6 @@ body {
   margin: 0 auto 22px;
 }
 
-/* Same soft line */
 .home-divider {
   width: min(340px, 60vw);
   height: 5px;
@@ -400,7 +426,6 @@ body {
   margin: 22px auto 26px;
 }
 
-/* Arrow button next to pin boxes */
 .pin-go {
   border: none;
   background: transparent;
@@ -409,4 +434,26 @@ body {
   color: #D78B1B;
   cursor: pointer;
   padding: 6px 8px;
+}
+
+/* PUZZLE 1 plants*/
+
+.puzzle1-title {
+  color: #4DA363;
+}
+
+/* PUZZLE 2 polaroids*/
+
+.puzzle2-title {
+  color: #D78B1B;
+}
+
+.home-body--memories .mem-line {
+  display: block;              /* each sentence on its own line */
+}
+
+.home-body--memories .mem-initial {
+  font-family: "Lacquer", cursive;
+  font-size: 40px;
+  color: #F95C4B;
 }

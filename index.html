@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Molle:ital@1&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lacquer&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -99,8 +100,14 @@
       <button id="hintUnlockBtn" class="hint-submit">UNLOCK HINT</button>
     </div>
 
-    <p id="hintMsg" class="hint-msg hidden"></p>
-  </div>
+<div id="hintMsgWrap" class="hint-msg-wrap hidden">
+  <button id="hintBack" class="arrowback-btn" aria-label="Go back to hint input">
+    <img src="assets/images/arrow_left.png" alt="" />
+  </button>
+
+  <p id="hintMsg" class="hint-msg"></p>
+</div>
+</div>
 
   <!-- WARM-UP CONTENT (SALUD) -->
   <div id="welcomeContent" class="welcome-wrap welcome-view">
@@ -136,9 +143,9 @@
     </div>
   </div>
 
-  <!-- PUZZLE 1 VIEW -->
+  <!-- PUZZLE 1 VIEW : PLANTS -->
   <section id="puzzle1View" class="home-wrap welcome-view hidden">
-    <h1 class="home-title">Puzzle One</h1>
+    <h1 class="home-title puzzle1-title">Touch and Turn</h1>
 
     <p class="home-body">
       You won't solve this by staying seated, the answer grows where light is needed.
@@ -161,6 +168,65 @@
         <img src="assets/images/arrow_right.png" alt="" />
       </button>
     </div>
+
+      </section>
+
+      <!-- PUZZLE 2 VIEW : POLAROIDS-->
+  <section id="puzzle2View" class="home-wrap welcome-view hidden">
+    <h1 class="home-title puzzle2-title">Visual Memories</h1>
+
+<p class="home-body home-body--memories">
+  <span class="mem-line"><span class="mem-initial">S</span>ometimes memories are misleading.</span>
+  <span class="mem-line"><span class="mem-initial">A</span>ll photos are not equal.</span>
+  <span class="mem-line"><span class="mem-initial">W</span>hat you survived matters.</span>
+</p>
+
+    <div class="home-divider"></div>
+
+    <div class="pin-row">
+      <div class="tooltip" data-tooltip="To get a hint use the matching COUPON CODE">
+        <div class="pin-boxes" id="puzzle2Boxes">
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+        </div>
+      </div>
+
+      <button id="puzzle2UnlockBtn" class="arrow-btn" aria-label="Submit puzzle 2 code">
+        <img src="assets/images/arrow_right.png" alt="" />
+      </button>
+    </div>
+
+  </section>
+
+        <!-- PUZZLE 3 VIEW : PERSE-->
+  <section id="puzzle3View" class="home-wrap welcome-view hidden">
+    <h1 class="home-title puzzle3-title">THE COMPLIMENT</h1>
+
+    <p class="home-body">
+      "Your words help, when my reflection doesn't. Sometimes you have to look twice."
+    </p>
+
+    <div class="home-divider"></div>
+
+    <div class="pin-row">
+      <div class="tooltip" data-tooltip="To get a hint use the matching COUPON CODE">
+        <div class="pin-boxes" id="puzzle3Boxes">
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+        </div>
+      </div>
+
+      <button id="puzzle3UnlockBtn" class="arrow-btn" aria-label="Submit puzzle 3 code">
+        <img src="assets/images/arrow_right.png" alt="" />
+      </button>
+    </div>
+
   </section>
 
 </main>
