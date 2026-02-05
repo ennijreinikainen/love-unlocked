@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love Unlocked</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Molle:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HOME SCREEN -->
+  <main id="home" class="screen">
+    <button id="logoBtn" class="logo-btn" aria-label="Open password screen">
+      <img
+        src="assets/images/logo_unlocked.png"
+        alt="Love Unlocked"
+        class="logo"
+      />
+    </button>
+  </main>
+
+<!-- PASSWORD SCREEN -->
+<main id="password" class="screen hidden">
+  <div class="pin-wrap">
+    <div class="pin-title">
+      <span class="pin-left">Password</span>
+      <span class="pin-right">Required</span>
+    </div>
+
+    <div class="pin-row">
+        <div
+  class="tooltip"
+  data-tooltip="Forgot your password? Hint: Dog’s Birthday"
+>
+      <div class="pin-boxes" id="pinBoxes">
+        <input class="pin-box" inputmode="numeric" maxlength="1" aria-label="PIN digit 1" />
+        <input class="pin-box" inputmode="numeric" maxlength="1" aria-label="PIN digit 2" />
+        <input class="pin-box" inputmode="numeric" maxlength="1" aria-label="PIN digit 3" />
+        <input class="pin-box" inputmode="numeric" maxlength="1" aria-label="PIN digit 4" />
+      </div>
+      </div>
+
+      <button id="unlockBtn" class="arrow-btn" aria-label="Submit password">
+        <img src="assets/images/arrow_right.png" alt="" />
+      </button>
+    </div>
+
+    <p id="error" class="error hidden">Forgot your password? Hint: Dog’s Birthday</p>
+  </div>
+</main>
+
+<!-- WELCOME HOME SCREEN -->
+<main id="welcome" class="screen hidden">
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <img
+      src="assets/images/logo_unlocked.png"
+      alt="Love Unlocked"
+      class="top-logo"
+    />
+
+    <div class="top-actions">
+      <div class="tooltip" data-tooltip="Need courage? Press for a kiss">
+        <button id="kissBtn" class="icon-btn" aria-label="Ask for a kiss">
+          <img src="assets/images/kiss.png" alt="" />
+        </button>
+      </div>
+
+      <div class="tooltip" data-tooltip="Feeling stuck? Press for a hint">
+        <button id="hintBtn" class="icon-btn" aria-label="Open hint lock">
+          <img src="assets/images/lookinglass.png" alt="" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HINT CARD -->
+  <div id="hintCard" class="hint-card hidden">
+    <h3 class="hint-code-title">COUPON CODE</h3>
+
+    <div id="hintInputWrap">
+      <div class="pin-row">
+        <div class="tooltip" data-tooltip="Use matching CODE from the card to unlock hint">
+          <div class="pin-boxes hint-pin-boxes" id="hintBoxes">
+            <input class="pin-box hint-pin-box" type="text" inputmode="text" maxlength="1" />
+            <input class="pin-box hint-pin-box" type="text" inputmode="text" maxlength="1" />
+            <input class="pin-box hint-pin-box" type="text" inputmode="text" maxlength="1" />
+            <input class="pin-box hint-pin-box" type="text" inputmode="text" maxlength="1" />
+          </div>
+        </div>
+      </div>
+
+      <button id="hintUnlockBtn" class="hint-submit">UNLOCK HINT</button>
+    </div>
+
+    <p id="hintMsg" class="hint-msg hidden"></p>
+  </div>
+
+  <!-- WARM-UP CONTENT (SALUD) -->
+  <div id="welcomeContent" class="welcome-wrap welcome-view">
+    <h1 class="welcome-title">Welcome to Love Unlocked</h1>
+
+    <p class="welcome-text">
+      Here you’ll solve small mysteries and test your critical thinking skills. If you get stuck, use the icon on the corner for a hint.
+      <strong>Do you have what it takes?</strong><br />
+      You’re free to explore — the answers aren’t all on the screen.
+    </p>
+
+    <h2 class="toast-title">
+      But first things first.<br />
+      Every good story starts with a toast !
+    </h2>
+
+    <div class="toast-divider"></div>
+
+    <div class="pin-row toast-row">
+      <div class="tooltip" data-tooltip="To get a hint use COUPON CODE from the card on hint -icon">
+        <div class="pin-boxes" id="toastBoxes">
+          <input class="pin-box" type="text" inputmode="text" maxlength="1" aria-label="Toast code letter 1" />
+          <input class="pin-box" type="text" inputmode="text" maxlength="1" aria-label="Toast code letter 2" />
+          <input class="pin-box" type="text" inputmode="text" maxlength="1" aria-label="Toast code letter 3" />
+          <input class="pin-box" type="text" inputmode="text" maxlength="1" aria-label="Toast code letter 4" />
+          <input class="pin-box" type="text" inputmode="text" maxlength="1" aria-label="Toast code letter 5" />
+        </div>
+      </div>
+
+      <button id="toastUnlockBtn" class="arrow-btn" aria-label="Submit toast code">
+        <img src="assets/images/arrow_right.png" alt="" />
+      </button>
+    </div>
+  </div>
+
+  <!-- PUZZLE 1 VIEW -->
+  <section id="puzzle1View" class="home-wrap welcome-view hidden">
+    <h1 class="home-title">Puzzle One</h1>
+
+    <p class="home-body">
+      You won't solve this by staying seated, the answer grows where light is needed.
+    </p>
+
+    <div class="home-divider"></div>
+
+    <div class="pin-row">
+      <div class="tooltip" data-tooltip="To get a hint use the matching COUPON CODE">
+        <div class="pin-boxes" id="puzzle1Boxes">
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+        </div>
+      </div>
+
+      <button id="puzzle1UnlockBtn" class="arrow-btn" aria-label="Submit puzzle 1 code">
+        <img src="assets/images/arrow_right.png" alt="" />
+      </button>
+    </div>
+  </section>
+
+</main>
+
+  <script src="script.js"></script>
+</body>
+</html>
