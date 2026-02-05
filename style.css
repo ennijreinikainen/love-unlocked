@@ -457,3 +457,25 @@ body {
   font-size: 40px;
   color: #F95C4B;
 }
+
+/* PUZZLE 5 book*/
+
+.home-body--book .book-word {
+  font-family: "Rubik Distressed", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* PUZZLE 7 final*/
+
+.home-body--final .final-word {
+  font-family: "Molle", cursive;
+  font-size: 25px;
+  color: #F95C4B;
+}
+
+.home-body--finalmsg {
+  font-family: "DM Serif Text", serif;
+  font-size: 50px;
+  color: #D78B1B;
+}

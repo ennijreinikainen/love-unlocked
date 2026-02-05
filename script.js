@@ -21,6 +21,10 @@ const hintMsg = document.getElementById("hintMsg");
 const hintBack = document.getElementById("hintBack");
 const hintUnlockBtn = document.getElementById("hintUnlockBtn");
 
+// Final msg reveal
+const puzzle7InputWrap = document.getElementById("puzzle7InputWrap");
+const puzzle7SuccessMsg = document.getElementById("puzzle7SuccessMsg");
+
 /* ---------------------------
    Screen navigation
 ---------------------------- */
@@ -262,7 +266,7 @@ const hintLock = setupCodeLock({
     KISS: "We started from somewhere, found ourselves disappearing in a moment elsewhere and ended up here.",
     GIFT: "Reading is a useful hobby, especially for solving mysteries.",
     AUER: "Now you know where to look. I'ts simply the first you see.",
-    BEST: "Rakas!",
+    MINE: "Rakas!",
     WINE: "Tommy said it well.",
     LAST: "This time there is no monsters under there.",
   },
@@ -352,6 +356,90 @@ onSuccess: () => {
   showWelcomeViewById("puzzle4View");
   puzzle4Lock?.focusFirst();
 },
+  onFail: () => {
+    showError("Not quite. Use coupon code from the card for a hint.");
+  },
+});
+
+/* ---------------------------
+   PUZZLE 4: (JUPIT) places
+---------------------------- */
+
+const puzzle4Lock = setupCodeLock({
+  boxesId: "puzzle4Boxes",
+  buttonId: "puzzle4UnlockBtn",
+  length: 5,
+  allow: "letters",
+  correct: "JUPIT",
+onSuccess: () => {
+  hideError();
+  showWelcomeViewById("puzzle5View");
+  puzzle5Lock?.focusFirst();
+},
+  onFail: () => {
+    showError("Not quite. Use coupon code from the card for a hint.");
+  },
+});
+
+/* ---------------------------
+   PUZZLE 5: (RAKAS) the book
+---------------------------- */
+
+const puzzle5Lock = setupCodeLock({
+  boxesId: "puzzle5Boxes",
+  buttonId: "puzzle5UnlockBtn",
+  length: 5,
+  allow: "letters",
+  correct: "RAKAS",
+onSuccess: () => {
+  hideError();
+  showWelcomeViewById("puzzle6View");
+  puzzle6Lock?.focusFirst();
+},
+  onFail: () => {
+    showError("Not quite. Use coupon code from the card for a hint.");
+  },
+});
+
+/* ---------------------------
+   PUZZLE 6: (SINUN) the wine glass
+---------------------------- */
+
+const puzzle6Lock = setupCodeLock({
+  boxesId: "puzzle6Boxes",
+  buttonId: "puzzle6UnlockBtn",
+  length: 5,
+  allow: "letters",
+  correct: "SINUN",
+onSuccess: () => {
+  hideError();
+  showWelcomeViewById("puzzle7View");
+  puzzle7Lock?.focusFirst();
+},
+  onFail: () => {
+    showError("Not quite. Use coupon code from the card for a hint.");
+  },
+});
+
+/* ---------------------------
+   PUZZLE 7: (ENNIR) FINAL
+---------------------------- */
+
+const puzzle7Lock = setupCodeLock({
+  boxesId: "puzzle7Boxes",
+  buttonId: "puzzle7UnlockBtn",
+  length: 5,
+  allow: "letters",
+  correct: "ENNIR",
+  caseInsensitive: true,
+
+  onSuccess: () => {
+    hideError();
+
+    if (puzzle7InputWrap) puzzle7InputWrap.classList.add("hidden");
+    if (puzzle7SuccessMsg) puzzle7SuccessMsg.classList.remove("hidden");
+  },
+
   onFail: () => {
     showError("Not quite. Use coupon code from the card for a hint.");
   },
