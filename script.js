@@ -25,6 +25,19 @@ const hintUnlockBtn = document.getElementById("hintUnlockBtn");
 const puzzle7InputWrap = document.getElementById("puzzle7InputWrap");
 const puzzle7SuccessMsg = document.getElementById("puzzle7SuccessMsg");
 
+// Error msg timer
+let errorTimer = null;
+
+// Sound effect and confetti anim
+const kissSound = document.getElementById("kissSound");
+const fanfareSound = document.getElementById("fanfareSound");
+const confettiEl = document.getElementById("confetti");
+const errorSound = document.getElementById("errorSound");
+const applaudSound = document.getElementById("applaudSound");
+
+// alert msg
+const toastEl = document.getElementById("toast");
+
 /* ---------------------------
    Screen navigation
 ---------------------------- */
@@ -52,15 +65,204 @@ function showWelcomeViewById(viewId) {
 /* ---------------------------
    Password error helpers
 ---------------------------- */
-function showError(msg) {
+function showError(msg, duration = 8000) {
   if (!errorEl) return;
+
+  // Set text + show
   errorEl.textContent = msg;
   errorEl.classList.remove("hidden");
+
+  // Clear any existing timer
+  if (errorTimer) {
+    clearTimeout(errorTimer);
+  }
+
+  // Auto-hide after duration
+  errorTimer = setTimeout(() => {
+    hideError();
+    errorTimer = null;
+  }, duration);
 }
 
 function hideError() {
   if (!errorEl) return;
   errorEl.classList.add("hidden");
+
+  if (errorTimer) {
+    clearTimeout(errorTimer);
+    errorTimer = null;
+  }
+}
+
+/* ---------------------------
+   Kiss alert msg
+---------------------------- */
+
+function showToast(message, duration = 2200) {
+  if (!toastEl) return;
+
+  toastEl.querySelector(".toast-text").textContent = message;
+
+  toastEl.classList.remove("hidden");
+  toastEl.classList.add("show");
+
+  setTimeout(() => {
+    toastEl.classList.remove("show");
+    setTimeout(() => toastEl.classList.add("hidden"), 300);
+  }, duration);
+}
+
+/* sound helper */
+function unlockAudioOnce() {
+  if (!fanfareSound) return;
+
+  const prevVol = fanfareSound.volume;
+  fanfareSound.volume = 0; // silent unlock
+
+  fanfareSound.play()
+    .then(() => {
+      fanfareSound.pause();
+      fanfareSound.currentTime = 0;
+      fanfareSound.volume = prevVol ?? 1;
+    })
+    .catch(() => {
+      fanfareSound.volume = prevVol ?? 1;
+    });
+}
+
+// Unlock on the first user click anywhere
+window.addEventListener("click", unlockAudioOnce, { once: true });
+
+function unlockAudioOnce() {
+  const audios = [fanfareSound, errorSound, applaudSound, kissSound].filter(Boolean);
+
+  audios.forEach((a) => {
+    const prevVol = a.volume;
+    a.volume = 0;
+    a.play().then(() => {
+      a.pause();
+      a.currentTime = 0;
+      a.volume = prevVol ?? 1;
+    }).catch(() => {
+      a.volume = prevVol ?? 1;
+    });
+  });
+}
+
+window.addEventListener("click", unlockAudioOnce, { once: true });
+
+/* LAST SUCCESS SOUND helper */
+function playApplause() {
+  if (!applaudSound) return;
+  applaudSound.pause();
+  applaudSound.currentTime = 0;
+  applaudSound.volume = 1;
+  applaudSound.play().catch(() => {});
+}
+
+/*---------------------------
+   Confetti animation
+----------------------------*/
+function celebrateSuccess(duration = 2000) {
+  // Play sound
+if (fanfareSound) {
+  fanfareSound.pause();
+  fanfareSound.currentTime = 0;
+  fanfareSound.volume = 1;
+  fanfareSound.play().catch(() => {});
+}
+
+  // Confetti burst
+  if (!confettiEl) return;
+
+  confettiEl.innerHTML = ""; // clear old pieces
+  confettiEl.classList.remove("hidden");
+
+  const colors = ["#ffffff", "#ffd1dc", "#ff5c8a", "#c7f9cc", "#ffd166", "#a0c4ff"];
+  const pieceCount = 80;
+
+  for (let i = 0; i < pieceCount; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+
+    // randomize
+    const left = Math.random() * 100; // vw
+    const size = 6 + Math.random() * 10; // px
+    const delay = Math.random() * 0.2; // seconds
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    piece.style.left = `${left}vw`;
+    piece.style.width = `${size}px`;
+    piece.style.height = `${size * 1.4}px`;
+    piece.style.background = color;
+    piece.style.animationDelay = `${delay}s`;
+
+    confettiEl.appendChild(piece);
+  }
+
+  // Hide after duration
+  setTimeout(() => {
+    confettiEl.classList.add("hidden");
+    confettiEl.innerHTML = "";
+  }, duration);
+}
+
+/* LAST SUCCESS AND CONFETTI */
+
+function celebrateFinal(duration = 2500) {
+  playApplause();
+
+  // reuse your existing confetti visuals:
+  if (!confettiEl) return;
+
+  confettiEl.innerHTML = "";
+  confettiEl.classList.remove("hidden");
+
+  const colors = ["#ffffff", "#ffd1dc", "#ff5c8a", "#c7f9cc", "#ffd166", "#a0c4ff"];
+  const pieceCount = 110; // a bit more for the final!
+
+  for (let i = 0; i < pieceCount; i++) {
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+
+    const left = Math.random() * 100;
+    const size = 6 + Math.random() * 12;
+    const delay = Math.random() * 0.2;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    piece.style.left = `${left}vw`;
+    piece.style.width = `${size}px`;
+    piece.style.height = `${size * 1.4}px`;
+    piece.style.background = color;
+    piece.style.animationDelay = `${delay}s`;
+
+    confettiEl.appendChild(piece);
+  }
+
+  setTimeout(() => {
+    confettiEl.classList.add("hidden");
+    confettiEl.innerHTML = "";
+  }, duration);
+}
+
+/* WRONG CODE / ERROR AUDIO */
+function playErrorSound() {
+  if (!errorSound) return;
+  errorSound.pause();
+  errorSound.currentTime = 0;
+  errorSound.play().catch(() => {});
+}
+
+function shakeBoxes(boxesId) {
+  const el = document.getElementById(boxesId);
+  if (!el) return;
+
+  // restart animation if spam-clicking
+  el.classList.remove("shake");
+  void el.offsetWidth; // force reflow
+  el.classList.add("shake");
+
+  setTimeout(() => el.classList.remove("shake"), 400);
 }
 
 /* ---------------------------
@@ -101,6 +303,8 @@ function setupCodeLock({
 const submit = () => {
   const enteredRaw = inputs.map((i) => i.value).join("").trim();
   if (enteredRaw.length < length) {
+    playErrorSound();
+    shakeBoxes(boxesId);
     onFail?.(`${length} characters required`);
     return;
   }
@@ -114,6 +318,8 @@ const submit = () => {
       clear();
       onSuccess?.(payload, key);
     } else {
+      playErrorSound();
+      shakeBoxes(boxesId);
       clear();
       focusFirst();
       onFail?.("Wrong code");
@@ -129,6 +335,8 @@ const submit = () => {
     clear();
     onSuccess?.();
   } else {
+    playErrorSound();
+    shakeBoxes(boxesId);
     clear();
     focusFirst();
     onFail?.("Wrong code");
@@ -162,6 +370,19 @@ const submit = () => {
   return { inputs, submit, clear, focusFirst };
 }
 
+// Global click listener to close hint card when clicking outside
+document.addEventListener("click", (e) => {
+  // If hint card is hidden, do nothing
+  if (hintCard?.classList.contains("hidden")) return;
+
+  const clickedInsideHint =
+    hintCard.contains(e.target) || hintBtn.contains(e.target);
+
+  if (!clickedInsideHint) {
+    hintCard.classList.add("hidden");
+  }
+});
+
 /* ---------------------------
    HOME -> PASSWORD
 ---------------------------- */
@@ -190,7 +411,6 @@ onSuccess: () => {
   toastLock?.focusFirst();
 },
   onFail: () => {
-    // Keep your original hint behavior
     showError("Forgot your password? Hint: Dog’s Birthday");
   },
 });
@@ -201,11 +421,17 @@ onSuccess: () => {
 
 // KISS BUTTON (mock)
 kissBtn?.addEventListener("click", () => {
-  alert("💋 The mastermind has been notified.");
+  if (kissSound) {
+    kissSound.currentTime = 0; // allows rapid re-clicks
+    kissSound.play();
+  }
+  showToast("The mastermind has been notified.");
 });
 
 // TOGGLE HINT CARD
-hintBtn?.addEventListener("click", () => {
+hintBtn?.addEventListener("click", (e) => {
+  e.stopPropagation();
+
   const willShow = hintCard?.classList.contains("hidden");
   hintCard?.classList.toggle("hidden");
 
@@ -213,6 +439,11 @@ hintBtn?.addEventListener("click", () => {
     resetHintCard();
     hintLock?.focusFirst();
   }
+});
+
+// Prevent clicks inside the hint card from closing it
+hintCard?.addEventListener("click", (e) => {
+  e.stopPropagation();
 });
 
 /* ---------------------------
@@ -256,7 +487,7 @@ const hintLock = setupCodeLock({
 
   // Map of hint text
   correct: {
-    COLD: "There might be a useful item on the table.",
+    COLD: "There might be a useful item on this table.",
     GROW: "Sometimes the answer is on the other side.",
     POTS: "Do the colors and patterns look familiar?",
     DATE: "If it is valuable, it goes on the fridge.",
@@ -265,9 +496,9 @@ const hintLock = setupCodeLock({
     CLUB: "Suddenly all the places can be found where we sit and relax.",
     KISS: "We started from somewhere, found ourselves disappearing in a moment elsewhere and ended up here.",
     GIFT: "Reading is a useful hobby, especially for solving mysteries.",
-    AUER: "Now you know where to look. I'ts simply the first you see.",
+    LUCK: "Now you know where to look. I'ts simply the first you see.",
     MINE: "Rakas!",
-    WINE: "Tommy said it well.",
+    WORD: "Tommy said it well.",
     LAST: "This time there is no monsters under there.",
   },
 
@@ -292,6 +523,7 @@ const toastLock = setupCodeLock({
   correct: "SALUD",
   caseInsensitive: true,
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle1View");
   puzzle1Lock?.focusFirst();
@@ -312,6 +544,7 @@ const puzzle1Lock = setupCodeLock({
   allow: "digits",
   correct: "92731",
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle2View"); 
   puzzle2Lock?.focusFirst();
@@ -332,6 +565,7 @@ const puzzle2Lock = setupCodeLock({
   allow: "digits",
   correct: "14126",
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle3View");
   puzzle3Lock?.focusFirst();
@@ -352,6 +586,7 @@ const puzzle3Lock = setupCodeLock({
   allow: "digits",
   correct: "42896",
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle4View");
   puzzle4Lock?.focusFirst();
@@ -372,6 +607,7 @@ const puzzle4Lock = setupCodeLock({
   allow: "letters",
   correct: "JUPIT",
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle5View");
   puzzle5Lock?.focusFirst();
@@ -392,6 +628,7 @@ const puzzle5Lock = setupCodeLock({
   allow: "letters",
   correct: "RAKAS",
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle6View");
   puzzle6Lock?.focusFirst();
@@ -412,6 +649,7 @@ const puzzle6Lock = setupCodeLock({
   allow: "letters",
   correct: "SINUN",
 onSuccess: () => {
+  celebrateSuccess(); 
   hideError();
   showWelcomeViewById("puzzle7View");
   puzzle7Lock?.focusFirst();
@@ -434,6 +672,7 @@ const puzzle7Lock = setupCodeLock({
   caseInsensitive: true,
 
   onSuccess: () => {
+    celebrateFinal(); 
     hideError();
 
     if (puzzle7InputWrap) puzzle7InputWrap.classList.add("hidden");

@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Love Unlocked</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon.png">
    <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Molle:ital@1&display=swap" rel="stylesheet">
@@ -51,8 +52,6 @@
         <img src="assets/images/arrow_right.png" alt="" />
       </button>
     </div>
-
-    <p id="error" class="error hidden">Forgot your password? Hint: Dog’s Birthday</p>
   </div>
 </main>
 
@@ -80,6 +79,10 @@
         </button>
       </div>
     </div>
+
+     <!-- ERROR MSG -->
+<p id="error" class="error hidden"></p>
+
   </header>
 
   <!-- HINT CARD -->
@@ -149,7 +152,7 @@
     <h1 class="home-title puzzle1-title">Touch and Turn</h1>
 
     <p class="home-body">
-      You won't solve this by staying seated, the answer grows where light is needed.
+      "You won't solve this by staying seated, the answer grows where light is needed.""
     </p>
 
     <div class="home-divider"></div>
@@ -169,6 +172,24 @@
         <img src="assets/images/arrow_right.png" alt="" />
       </button>
     </div>
+
+    <div class="plant-row">
+  <div class="plant-box">
+    <img src="assets/images/pot1_9.jpeg" alt="Plant pot 1" />
+  </div>
+  <div class="plant-box">
+    <img src="assets/images/pot2_2.jpeg" alt="Plant pot 2" />
+  </div>
+  <div class="plant-box">
+    <img src="assets/images/pot3_7.jpeg" alt="Plant pot 3" />
+  </div>
+  <div class="plant-box">
+    <img src="assets/images/pot4_3.jpeg" alt="Plant pot 4" />
+  </div>
+  <div class="plant-box">
+    <img src="assets/images/pot5_1.jpeg" alt="Plant pot 5" />
+  </div>
+</div>
 
       </section>
 
@@ -213,21 +234,66 @@
 
     <div class="home-divider"></div>
 
-    <div class="pin-row">
-      <div class="tooltip" data-tooltip="To get a hint use the matching COUPON CODE">
-        <div class="pin-boxes" id="puzzle3Boxes">
-          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
-          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
-          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
-          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
-          <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
-        </div>
-      </div>
+<div class="equation-stack" id="puzzle3Boxes">
+
+  <div class="equation-row">
+    <div class="eq-left">
+      <span class="symbol">▲</span>
+      <span class="operator">/ 4 =</span>
+    </div>
+    <div class="eq-right">
+      <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+    </div>
+  </div>
+
+  <div class="equation-row">
+    <div class="eq-left">
+      <span class="symbol">■</span>
+      <span class="operator">−</span>
+      <span class="symbol">▲</span>
+      <span class="operator">=</span>
+    </div>
+    <div class="eq-right">
+      <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+    </div>
+  </div>
+
+  <div class="equation-row">
+    <div class="eq-left">
+      <span class="operator">3 +</span>
+      <span class="symbol">●</span>
+      <span class="operator">=</span>
+    </div>
+    <div class="eq-right">
+      <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+    </div>
+  </div>
+
+  <div class="equation-row">
+    <div class="eq-left">
+      <span class="symbol">♥</span>
+      <span class="operator">− 10 =</span>
+    </div>
+    <div class="eq-right">
+      <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
+    </div>
+  </div>
+
+  <div class="equation-row">
+    <div class="eq-left">
+      <span class="symbol">■</span>
+      <span class="operator">/ 3 =</span>
+    </div>
+    <div class="eq-right">
+      <input class="pin-box" type="text" inputmode="numeric" maxlength="1" />
 
       <button id="puzzle3UnlockBtn" class="arrow-btn" aria-label="Submit puzzle 3 code">
         <img src="assets/images/arrow_right.png" alt="" />
       </button>
     </div>
+  </div>
+
+</div>
 
   </section>
 
@@ -236,8 +302,8 @@
     <h1 class="home-title puzzle4-title">IMPORTANT PLACES</h1>
 
     <p class="home-body">
-      "So many places left to see, but what really matters is only three. <br />
-      They didn't happen all at once, one led to the next and then to us."
+      "So many places left to see, but what really matters is only three." <br />
+      "They didn't happen all at once, one led to the next and then to us."
     </p>
 
     <div class="home-divider"></div>
@@ -267,19 +333,42 @@
     <p class="home-body home-body--book">
   <span class="book-line">"Is <span class="book-word">JUSTICE</span> always served?</span>
   <span class="book-line">Sometimes <span class="book-word">MURDER</span> comes with a ribbon."</span>
-
 </p>
+
+    <p class="home-body">
+      "All you need is the first."
+    </p>
 
     <div class="home-divider"></div>
 
     <div class="pin-row">
       <div class="tooltip" data-tooltip="To get a hint use the matching COUPON CODE">
         <div class="pin-boxes" id="puzzle5Boxes">
+          <div class="pin-col">
           <input class="pin-box" type="text" inputmode="text" maxlength="1" />
+          <span class="pin-hint">38</span>
+        </div>
+
+        <div class="pin-col">
           <input class="pin-box" type="text" inputmode="text" maxlength="1" />
+          <span class="pin-hint">171</span>
+        </div>
+
+        <div class="pin-col">
           <input class="pin-box" type="text" inputmode="text" maxlength="1" />
+          <span class="pin-hint">254</span>
+        </div>  
+
+        <div class="pin-col">
           <input class="pin-box" type="text" inputmode="text" maxlength="1" />
+          <span class="pin-hint">379</span>
+        </div> 
+
+        <div class="pin-col">
           <input class="pin-box" type="text" inputmode="text" maxlength="1" />
+          <span class="pin-hint">57</span>
+        </div> 
+
         </div>
       </div>
 
@@ -300,6 +389,10 @@
     </p>
 
     <div class="home-divider"></div>
+
+    <p class="home-body home-body--iam">
+      MINÄ OLEN
+    </p>
 
     <div class="pin-row">
       <div class="tooltip" data-tooltip="To get a hint use the matching COUPON CODE">
@@ -357,6 +450,30 @@
 </section>
 
 </main>
+
+  <!-- COURAGE KISS sound alert -->
+<audio
+  id="kissSound"
+  src="assets/audio/kiss_sound.wav"
+  preload="auto"
+></audio>
+
+  <!-- alert msg -->
+<div id="toast" class="toast hidden">
+  <span class="toast-icon">💋</span>
+  <span class="toast-text">The mastermind has been notified.</span>
+</div>
+
+  <!-- success fanfare -->
+<audio id="fanfareSound" src="assets/audio/fanfare.wav" preload="auto"></audio>
+<!-- success confetti -->
+<div id="confetti" class="confetti hidden" aria-hidden="true"></div>
+
+  <!-- error audio -->
+<audio id="errorSound" src="assets/audio/error.wav" preload="auto"></audio>
+
+  <!-- applaudaudio -->
+<audio id="applaudSound" src="assets/audio/applaud.wav" preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
