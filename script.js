@@ -5,7 +5,6 @@ const welcome = document.getElementById("welcome");
 
 // Buttons / UI
 const logoBtn = document.getElementById("logoBtn");
-const backBtn = document.getElementById("backBtn");
 const errorEl = document.getElementById("error");
 
 // Top bar (welcome screen)
@@ -112,26 +111,7 @@ function showToast(message, duration = 2200) {
   }, duration);
 }
 
-/* sound helper */
-function unlockAudioOnce() {
-  if (!fanfareSound) return;
-
-  const prevVol = fanfareSound.volume;
-  fanfareSound.volume = 0; // silent unlock
-
-  fanfareSound.play()
-    .then(() => {
-      fanfareSound.pause();
-      fanfareSound.currentTime = 0;
-      fanfareSound.volume = prevVol ?? 1;
-    })
-    .catch(() => {
-      fanfareSound.volume = prevVol ?? 1;
-    });
-}
-
-// Unlock on the first user click anywhere
-window.addEventListener("click", unlockAudioOnce, { once: true });
+// Sound helper
 
 function unlockAudioOnce() {
   const audios = [fanfareSound, errorSound, applaudSound, kissSound].filter(Boolean);
@@ -390,11 +370,6 @@ logoBtn?.addEventListener("click", () => {
   showScreen(password);
   passwordLock?.focusFirst();
 });
-
-backBtn?.addEventListener("click", () => {
-  showScreen(home);
-});
-
 /* ---------------------------
    LOCK #1: Password (2702)
 ---------------------------- */
@@ -419,10 +394,10 @@ onSuccess: () => {
    Welcome screen top bar actions
 ---------------------------- */
 
-// KISS BUTTON (mock)
+// KISS BUTTON 
 kissBtn?.addEventListener("click", () => {
   if (kissSound) {
-    kissSound.currentTime = 0; // allows rapid re-clicks
+    kissSound.currentTime = 0; 
     kissSound.play();
   }
   showToast("The mastermind has been notified.");
@@ -454,7 +429,7 @@ function showHintMessage(text) {
   // hide input view
   if (hintInputWrap) hintInputWrap.classList.add("hidden");
 
-  // set + show message view (this includes the back arrow)
+  // set + show message view 
   if (hintMsg) hintMsg.textContent = text;
   if (hintMsgWrap) hintMsgWrap.classList.remove("hidden");
 }
@@ -538,8 +513,8 @@ onSuccess: () => {
 ---------------------------- */
 
 const puzzle1Lock = setupCodeLock({
-  boxesId: "puzzle1Boxes",        // <-- puzzle 1 pin boxes wrapper id
-  buttonId: "puzzle1UnlockBtn",   // <-- puzzle 1 arrow button id
+  boxesId: "puzzle1Boxes",        
+  buttonId: "puzzle1UnlockBtn",  
   length: 5,
   allow: "digits",
   correct: "92731",
@@ -576,7 +551,7 @@ onSuccess: () => {
 });
 
 /* ---------------------------
-   PUZZLE 3: (42896) perse
+   PUZZLE 3: (42896) compliment
 ---------------------------- */
 
 const puzzle3Lock = setupCodeLock({
@@ -668,7 +643,7 @@ const puzzle7Lock = setupCodeLock({
   buttonId: "puzzle7UnlockBtn",
   length: 5,
   allow: "letters",
-  correct: "ENNIR",
+  correct: "CODE1",
   caseInsensitive: true,
 
   onSuccess: () => {
