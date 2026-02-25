@@ -75,6 +75,7 @@ Open `index.html` in your browser.
 
 ## Project Structure
 
+```
 love-unlocked
 ├── /assets     
 │   ├── /audio   # Sound effects (success, error, applause, etc.)
@@ -83,7 +84,7 @@ love-unlocked
 ├── style.css    # Styling, animations, and UI layout
 ├── script.js    # Application logic, puzzle system, and interactions
 └── README.md
-
+```
 ---
 
 ## Purpose of the Project
